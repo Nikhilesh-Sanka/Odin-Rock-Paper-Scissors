@@ -61,20 +61,25 @@ const playRound = (humanChoice=getHumanChoice(),computerChoice=getComputerChoice
         console.log(`it's a Draw`);
     }
 }
-const playGame = () => {
+let playRoundButton = document.querySelector("#play-round");
+let restartButton= document.querySelector("#restart");
+let result=document.querySelector("#results");
+const updateScore = () => {
+    result.innerHTML=`<p>Human Score=${humanScore}<br> Computer Score=${computerScore}`;
+}
+playRoundButton.addEventListener('click', () =>  {
     playRound();
-    playRound();
-    playRound();
-    playRound();
-    playRound();
-    if(humanScore>computerScore){
-        console.log(`you win`);
-    }
-    else if(humanScore<computerScore){
-        console.log(`you lose`);
+    if (humanScore===5||computerScore===5){
+        result.innerHTML=`<p>${humanScore>computerScore?"Human Wins":"Computer Wins"}<p>`;
+        humanScore=0;
+        computerScore=0;
     }
     else{
-        console.log(`its a Draw`);
+        updateScore();
     }
-}
-playGame();
+});
+restartButton.addEventListener("click",()=> {
+    humanScore=0;
+    computerScore=0;
+    updateScore();
+});
